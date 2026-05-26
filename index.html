@@ -224,6 +224,60 @@
     font-style: normal;
     margin: 0 0.3em;
   }
+  .rsvp-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.rsvp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #e8d9b0;
+  margin-bottom: 2.5rem;
+}
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.rsvp-form input {
+  background: transparent;
+  border: 0.5px solid rgba(210,175,80,0.3);
+  color: #e8d9b0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 14px 24px;
+  width: 100%;
+  max-width: 360px;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+.rsvp-form input::placeholder { color: rgba(210,175,80,0.3); }
+.rsvp-form input:focus { border-color: rgba(210,175,80,0.7); }
+.rsvp-form button {
+  background: transparent;
+  border: 0.5px solid rgba(210,175,80,0.5);
+  color: #d4a843;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+.rsvp-form button:hover {
+  background: rgba(210,175,80,0.08);
+  border-color: rgba(210,175,80,0.8);
+}
 
   /* IMAGE GALLERY — NOTE: images must be added manually to the /images/ folder
      and referenced in the HTML below. The file-upload feature only works locally. */
@@ -256,7 +310,7 @@
     border: 0.5px solid rgba(210,175,80,0.15);
     transition: border-color 0.3s;
   }
-  .img-slot:first-child { aspect-ratio: 4/3; }
+  .img-slot:first-child { aspect-ratio: 4/4; }
   .img-slot:hover { border-color: rgba(210,175,80,0.45); }
   .img-slot img {
     width: 100%;
@@ -386,6 +440,16 @@
     </div>
   </section>
 
+
+    <section class="rsvp-section">
+  <p class="section-label">Er du med?</p>
+  <h2 class="rsvp-title">Skriv dit navn</h2>
+  <form action="https://formspree.io/f/mzdwjqjz" method="POST" class="rsvp-form">
+    <input type="text" name="navn" placeholder="Dit navn..." required />
+    <button type="submit">Jeg deltager 🥂</button>
+  </form>
+</section>
+
   <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
   <section class="hosts-section">
@@ -394,6 +458,8 @@
       Joachim<span class="hosts-amp">&amp;</span>Emil<span class="hosts-amp">&amp;</span>Albert
     </div>
   </section>
+
+
 
   <!-- GALLERY
        Sådan tilføjer du billeder:
@@ -404,25 +470,25 @@
   -->
   <section class="gallery-section">
     <div class="gallery-header">
-      <p class="section-label">Stemning fra festen</p>
+      <p class="section-label">Velkommen</p>
     </div>
     <div class="gallery-grid">
 
       <!-- Stort billede (erstat src med dit eget) -->
       <div class="img-slot">
-        <!-- <img src="images/foto1.jpg" alt="Fest billede 1"> -->
+         <img src="Image/Bukkebruse.png" alt="Fest billede 1"> 
         <div class="img-placeholder">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+          <svg width="28" height="30" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
           </svg>
           <span><Image>
-          <William class="png"></William></span>
+          <Bukkebruse class="png"></Bukkebruse></span>
         </div>
       </div>
 
       <!-- Billede 2 -->
       <div class="img-slot">
-        <!-- <img src="images/foto2.jpg" alt="Fest billede 2"> -->
+         <img src="Image/Jokke.png" alt="Fest billede 2"> 
         <div class="img-placeholder">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -434,7 +500,7 @@
 
       <!-- Billede 3 -->
       <div class="img-slot">
-        <!-- <img src="images/foto3.jpg" alt="Fest billede 3"> -->
+         <img src="Image/Emil.png" alt="Fest billede 3"> 
         <div class="img-placeholder">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -446,7 +512,7 @@
 
       <!-- Billede 4 -->
       <div class="img-slot">
-        <!-- <img src="images/foto4.jpg" alt="Fest billede 4"> -->
+         <img src="Image/William.png" alt="Fest billede 4"> 
         <div class="img-placeholder">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -458,7 +524,7 @@
 
       <!-- Billede 5 -->
       <div class="img-slot">
-        <!-- <img src="images/foto5.jpg" alt="Fest billede 5"> -->
+         <img src="Image/Albert.png" alt="Fest billede 5"> 
         <div class="img-placeholder">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -486,6 +552,7 @@
       </iframe>
     </div>
   </section>
+
 
   <footer>
     <p class="footer-title">Vi ses til Distortion</p>
