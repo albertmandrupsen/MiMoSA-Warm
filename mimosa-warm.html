@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mimosa Warm til Distortion 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0804;
+    color: #e8d9b0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  .bubbles-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bubble {
+    position: absolute;
+    bottom: -60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(255,220,100,0.35), rgba(200,160,50,0.05));
+    border: 0.5px solid rgba(220,185,80,0.2);
+    animation: riseUp linear infinite;
+  }
+  @keyframes riseUp {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-110vh) translateX(var(--drift)); opacity: 0; }
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+  }
+
+  main { position: relative; z-index: 2; }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(700px, 90vw);
+    height: min(700px, 90vw);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,130,30,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pre-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: clamp(0.6rem, 1.5vw, 0.72rem);
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(210,175,80,0.7);
+    margin-bottom: 2rem;
+    animation: fadeDown 1.2s ease both;
+  }
+  .title-wrap { animation: fadeDown 1.2s 0.2s ease both; }
+  .title-mimosa {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(4rem, 14vw, 10rem);
+    line-height: 0.85;
+    color: #d4a843;
+    letter-spacing: -0.02em;
+    display: block;
+  }
+  .title-warm {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(2rem, 7vw, 5rem);
+    line-height: 1.1;
+    color: #e8d9b0;
+    letter-spacing: 0.1em;
+    display: block;
+  }
+  .divider-gold {
+    width: 120px;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, #d4a843, transparent);
+    margin: 2.5rem auto;
+    animation: fadeIn 1.5s 0.4s ease both;
+  }
+  .distortion-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: clamp(0.65rem, 1.8vw, 0.8rem);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: rgba(210,175,80,0.6);
+    animation: fadeIn 1.5s 0.5s ease both;
+  }
+  .hero-date {
+    margin-top: 3.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: #e8d9b0;
+    opacity: 0.9;
+    animation: fadeIn 1.5s 0.7s ease both;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    animation: fadeIn 2s 1.5s ease both;
+  }
+  .scroll-hint span {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 0.5px;
+    height: 40px;
+    background: linear-gradient(to bottom, #d4a843, transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.15); }
+  }
+
+  .details {
+    padding: 7rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem 5rem;
+    align-items: start;
+  }
+  @media (max-width: 600px) {
+    .details { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  .detail-block { }
+  .detail-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: #d4a843;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+  }
+  .detail-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: #e8d9b0;
+  }
+  .detail-sub {
+    font-size: 0.72rem;
+    color: rgba(210,175,80,0.55);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ornament {
+    text-align: center;
+    padding: 1rem 0;
+    color: rgba(210,175,80,0.3);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    letter-spacing: 1.5rem;
+  }
+
+  .hosts-section {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(210,175,80,0.6);
+    margin-bottom: 2rem;
+  }
+  .hosts-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: #e8d9b0;
+    line-height: 1.2;
+  }
+  .hosts-amp {
+    color: #d4a843;
+    font-style: normal;
+    margin: 0 0.3em;
+  }
+
+  /* IMAGE GALLERY — NOTE: images must be added manually to the /images/ folder
+     and referenced in the HTML below. The file-upload feature only works locally. */
+  .gallery-section {
+    padding: 5rem 2rem 7rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 700px) {
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .gallery-grid .img-slot:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .img-slot {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #140f05;
+    border: 0.5px solid rgba(210,175,80,0.15);
+    transition: border-color 0.3s;
+  }
+  .img-slot:first-child { aspect-ratio: 4/3; }
+  .img-slot:hover { border-color: rgba(210,175,80,0.45); }
+  .img-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .img-slot:hover img { transform: scale(1.03); }
+  .img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .img-placeholder svg { opacity: 0.2; }
+  .img-placeholder span {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(210,175,80,0.3);
+  }
+
+  /* VIDEO */
+  .video-section {
+    padding: 5rem 2rem 8rem;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .video-wrap {
+    margin-top: 2.5rem;
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #0f0b03;
+    border: 0.5px solid rgba(210,175,80,0.2);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  footer {
+    border-top: 0.5px solid rgba(210,175,80,0.1);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: #d4a843;
+    letter-spacing: 0.05em;
+  }
+  .footer-sub {
+    margin-top: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(210,175,80,0.35);
+  }
+  .footer-year {
+    margin-top: 3rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(210,175,80,0.2);
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bubbles-bg" id="bubbles"></div>
+<div class="grain"></div>
+
+<main>
+  <section class="hero">
+    <p class="pre-title">Joachim &nbsp;·&nbsp; Emil &nbsp;·&nbsp; Albert &nbsp;præsenterer</p>
+    <div class="title-wrap">
+      <span class="title-mimosa">Mimosa</span>
+      <span class="title-warm">Warm</span>
+    </div>
+    <div class="divider-gold"></div>
+    <p class="distortion-tag">til Distortion &nbsp;·&nbsp; Vesterbro &nbsp;·&nbsp; 2026</p>
+    <p class="hero-date">Torsdag den 4. juni</p>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="details">
+    <div class="detail-block">
+      <p class="detail-label">Dato</p>
+      <p class="detail-value">Torsdag<br>4. juni 2026</p>
+      <p class="detail-sub">Distortion week · Vesterbro</p>
+    </div>
+    <div class="detail-block">
+      <p class="detail-label">Sted</p>
+      <p class="detail-value">Godsbanegade 4, 5<br>1722 København</p>
+      <p class="detail-sub">Vesterbro</p>
+    </div>
+    <div class="detail-block">
+      <p class="detail-label">Dresscode</p>
+      <p class="detail-value">Hvad du har lyst til</p>
+      <p class="detail-sub">Ingen krav — bare kom</p>
+    </div>
+    <div class="detail-block">
+      <p class="detail-label">Servering</p>
+      <p class="detail-value">Mimosaer &amp; godt selskab</p>
+      <p class="detail-sub">Vi starter varmt op</p>
+    </div>
+  </section>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <section class="hosts-section">
+    <p class="section-label">Dine værter for aftenen</p>
+    <div class="hosts-names">
+      Joachim<span class="hosts-amp">&amp;</span>Emil<span class="hosts-amp">&amp;</span>Albert
+    </div>
+  </section>
+
+  <!-- GALLERY
+       Sådan tilføjer du billeder:
+       1. Lav en mappe ved siden af denne fil og kald den "images"
+       2. Læg dine billedfiler derind (fx foto1.jpg, foto2.jpg osv.)
+       3. Erstat src="images/foto1.jpg" nedenfor med dine rigtige filnavne
+       4. Slet <div class="img-placeholder">...</div> når et billede er sat ind
+  -->
+  <section class="gallery-section">
+    <div class="gallery-header">
+      <p class="section-label">Stemning fra festen</p>
+    </div>
+    <div class="gallery-grid">
+
+      <!-- Stort billede (erstat src med dit eget) -->
+      <div class="img-slot">
+        <!-- <img src="images/foto1.jpg" alt="Fest billede 1"> -->
+        <div class="img-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Tilføj billede</span>
+        </div>
+      </div>
+
+      <!-- Billede 2 -->
+      <div class="img-slot">
+        <!-- <img src="images/foto2.jpg" alt="Fest billede 2"> -->
+        <div class="img-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Tilføj billede</span>
+        </div>
+      </div>
+
+      <!-- Billede 3 -->
+      <div class="img-slot">
+        <!-- <img src="images/foto3.jpg" alt="Fest billede 3"> -->
+        <div class="img-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Tilføj billede</span>
+        </div>
+      </div>
+
+      <!-- Billede 4 -->
+      <div class="img-slot">
+        <!-- <img src="images/foto4.jpg" alt="Fest billede 4"> -->
+        <div class="img-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Tilføj billede</span>
+        </div>
+      </div>
+
+      <!-- Billede 5 -->
+      <div class="img-slot">
+        <!-- <img src="images/foto5.jpg" alt="Fest billede 5"> -->
+        <div class="img-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Tilføj billede</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VIDEO
+       Erstat VIDEO_ID nedenfor med dit YouTube video-ID.
+       Eksempel: https://www.youtube.com/watch?v=dQw4w9WgXcQ → ID er "dQw4w9WgXcQ"
+  -->
+  <section class="video-section">
+    <p class="section-label">Se hvad der venter</p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/VIDEO_ID?rel=0"
+        title="Mimosa Warm video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-title">Vi ses til Distortion</p>
+    <p class="footer-sub">Godsbanegade · Vesterbro · 4. juni</p>
+    <p class="footer-year">Mimosa Warm 2026</p>
+  </footer>
+</main>
+
+<script>
+  // Champagne bubbles
+  (function() {
+    const wrap = document.getElementById('bubbles');
+    for (let i = 0; i < 22; i++) {
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const size = 4 + Math.random() * 14;
+      const left = Math.random() * 100;
+      const duration = 8 + Math.random() * 18;
+      const delay = Math.random() * 20;
+      const drift = (Math.random() - 0.5) * 60;
+      b.style.cssText = `width:${size}px;height:${size}px;left:${left}%;animation-duration:${duration}s;animation-delay:-${delay}s;--drift:${drift}px`;
+      wrap.appendChild(b);
+    }
+  })();
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.detail-block, .gallery-section, .video-section, .hosts-section').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
